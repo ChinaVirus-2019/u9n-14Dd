@@ -1,0 +1,13 @@
+﻿var today = new Date();
+var weekday = new Array(7);
+weekday[0] = "星期日";
+weekday[1] = "星期一";
+weekday[2] = "星期二";
+weekday[3] = "星期三";
+weekday[4] = "星期四";
+weekday[5] = "星期五";
+weekday[6] = "星期六";
+var date = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + ("0" + today.getDate()).slice(-2) + ', ' + weekday[today.getDay()];
+var dateWOweekday = "<b>最後更新</b>" + today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+document.getElementById("date").innerHTML = date;
+document.getElementById("dateWOweekday").innerHTML = dateWOweekday;

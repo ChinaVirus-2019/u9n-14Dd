@@ -1,0 +1,105 @@
+@font-face {
+font-family: "Rubik-Medium";
+src: url("Rubik-Medium.ttf")   format('truetype')/* Safari, Android, iOS */, url('Rubik-Medium.woff') format('woff') /* Chrome */;
+
+}
+
+body {
+	background-color: #13B188;
+	font-family: "Rubik-Medium" !important;
+	color: #FFFFFF !important;
+}
+
+#backBtn {
+	position: absolute;
+	z-index: 1;
+	left: 0.75em;
+	top: 0.75em;
+	width: 2em;
+	height: 2em;
+	margin: 0.25em;
+}
+
+#title {
+	font-size: 2em;
+	margin: 0.25em;
+	text-shadow: 0em 0.1em 0.1em black;
+}
+
+#text {
+	font-size: 1.5em;
+	margin: 2em;
+	text-shadow: 0em 0.1em 0.1em black;
+}
+
+.modal-content {
+	background-color: #13B188;
+}
+
+.btn-close{
+	color: #FFF !important;
+	opacity: 1;
+	float: right;
+	margin-top: -4em;
+}
+
+#modalHead,#modalLocation,#modalDateTime,#modalText{
+	text-align: center;
+	text-shadow: 0em 0.1em 0.1em black;
+}
+
+#modalHead {
+	margin-top: 4em;
+}
+
+#modalLocation {
+	color: #F4DC32 !important;
+	font-size: 2em;
+}
+
+#modalCircleTick {
+	width: 8em;
+	margin-top: 3em;
+}
+
+#exitBlock{
+	margin-top: 8em;
+	margin-bottom: 1.5em;
+}
+
+#modalTick {
+	width: 1.75em;
+	height: 1.75em;
+	margin-left: 1.25em;
+	
+}
+
+#modalAutoExit{
+	margin-left: 0.5em;
+	margin-top: 0.1em;
+}
+
+#modalChange {
+	margin-top: 0.1em;
+	margin-left: 7em;
+}
+
+#modalExit {
+	text-align: center;
+	color: #000000 !important;
+	background-color: #FFDB2F;
+	font-size: 2em;
+	border-radius: 50px;
+	margin-left: 1em;
+	margin-right: 1em;
+	margin-top; 1em;
+}
+
+#modalText{
+	margin-top: 0.5em;
+}
+
+a {
+	text-decoration: none !important;
+	color: #FFFFFF
+}

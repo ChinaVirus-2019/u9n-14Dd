@@ -1,0 +1,15 @@
+{
+   "short_name":"安心出行",
+   "name":"安心出行",
+   "icons":[
+      {
+         "src":"img/ic_launcher.png",
+         "sizes":"192×192",
+         "type":"image/png"
+      }
+   ],
+   "start_url":"http://127.0.0.1/",
+   "background_color":"#13B188",
+   "theme_color":"#13B188",
+   "display":"standalone"
+}

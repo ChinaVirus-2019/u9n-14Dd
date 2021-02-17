@@ -1,0 +1,110 @@
+<html>
+	<!-- Head -->
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0 ,viewport-fit=cover, user-scalable=no, maximum-scale=1, minimum-scale=1">
+		<link rel="icon" href="img/ic_launcher.png">
+		<title>安心出行</title>
+		<link rel="manifest" href="manifest.json">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="white-translucent">
+		<link rel="apple-touch-icon" href="img/ic_launcher.png">
+	</head>
+	<!-- Body -->
+	<body>
+		<div class="position-relative">
+		<div id="dateDiv">
+			<p id="date"></p>
+			<p id="text">記錄你的到訪</p>
+		</div>
+		<div id="roundmiddle">
+			<div id="coroutine">
+				<div id="qrcode">
+					<a href="qrcode.html">
+						<img src="img/qrcode.jpg" id="qrcodeImg"/>
+						<div id="qrcodeImgTitle">
+							進入
+						</div>
+						<div id="qrcodeImgText">
+							掃描安心出行二維碼以記錄到
+							<br>
+							訪
+						</div>
+						<div id="qrcodeEnter">
+							<b>按此進入</b>
+							<img src="img/arrow_right.png" id="qrArrow">
+						</div>
+					</a>
+				</div>
+				<div id="taxi">
+					<a href="index.html">
+						<img src="img/taxi.jpg" id="taxiImg"/>
+						<div id="taxiImgTitle">
+							上車
+						</div>
+						<div id="taxiImgText">
+							乘搭的士時請掃描車廂內的車
+							<br>
+							牌
+						</div>
+						<div id="taxiEnter">
+							<b>按此上車</b>
+							<img src="img/arrow_right.png" id="taxiArrow">
+						</div>
+					</a>
+				</div>
+			</div>
+			<div id="roundrecord" class="position-relative">
+				<p id="dateWOweekday"></p>
+				<p id="note"><b id="number">0</b> 次感染風險通知</p>
+				<p id="moreInfo">更多詳細訊息</p>
+				<div class="position-absolute bottom-0 end-0"><img src="img/app_assets_img_facemask.png" id="facemask"/></div>
+			</div>
+		</div>
+		<div class="container-fluid fixed-bottom bg-white">
+			<div class="row">
+				<div class="col-4 text-center text-green">
+					<br>
+					<img src="img/app_assets_tabicons_icon_home_selected.png" width="32" height="32"/>
+					<br>
+					<p>主頁</p>
+					<br>
+				</div>
+				<div class="col-4 text-center text-gray">
+					<br>
+					<img src="img/app_assets_tabicons_icon_inbox.png" width="32" height="32"/>
+					<br>
+					<p>收件箱</p>
+					<br>
+				</div>
+				<div class="col-4 text-center text-gray">
+					<br>
+					<img src="img/app_assets_tabicons_icon_settings.png" width="32" height="32"/>
+					<br>
+					<p>設定</p>
+					<br>
+				</div>
+			</div>	
+		</div>
+		</div>
+	</body>
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<!-- Script -->
+	<script src="js/bootstrap.min.js"></script>
+	<script src="date.js"></script>
+	<script>
+		if ('serviceWorker' in navigator) {
+		  window.addEventListener('load', function() {
+			navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+			  // Registration was successful
+			  console.log('ServiceWorker registration successful with scope: ', registration.scope);
+			}).catch(function(err) {
+			  // registration failed :(
+			  console.log('ServiceWorker registration failed: ', err);
+			});
+		  });
+		}
+	</script>
+</html>

@@ -1,0 +1,147 @@
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0 ,viewport-fit=cover, user-scalable=no">
+	<link rel="icon" href="img/ic_launcher.png">
+	<title>安心出行</title>
+	<link rel="manifest" href="manifest.json">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="white-translucent">
+	<link rel="apple-touch-icon" href="img/ic_launcher.png">
+</head>
+<body>
+    <div id="topbar">
+        <span>
+            <a href="index.html"><img id="backBtn" src="img/arrow.png"></a>
+        </span>
+        <div id="title" class="text-center">掃描二維碼</div>
+    </div>
+    <div id="reader"></div>
+	<div id="text" class="fixed-bottom text-center">掃描二維碼</div>
+	<!-- Full screen modal -->
+	<div class="modal fade hide" id="qrCodeModal" tabindex="-1" aria-labelledby="qrCodeModalLabel" style="display: block; padding-right: 17px;" aria-modal="true" role="dialog">
+		<div class="modal-dialog modal-fullscreen">
+			<div class="modal-content">
+				<!-- 
+				<div class="modal-header">
+					<h5 class="modal-title h4" id="qrCodeModalLabel"></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				-->
+				<div class="modal-body">
+					<div>
+						<a href="index.html">
+							<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+						</a>
+						<div id="modalHead">你已進入場所</div>
+						<div id="modalLocation">地獄</div>
+						<div id="modalDateTime">1989-06-04 00:00</div>
+						<img src="img\CircleTick.png" id="modalCircleTick" class="mx-auto d-block"/>
+						<div id="exitBlock" class="d-flex flex-row">
+							<img src="img/tick.png" id="modalTick"/>
+							<div id="modalAutoExit">1小時後自動離開</div>
+							<div id="modalChange" class="ml-auto">變更</div>
+						</div>
+						<a href="index.html">
+							<div id="modalExit">離開</div>
+						</a>
+						<div id="modalText">當你離開時請緊記按"離開"</div>
+					</div>
+				</div>
+				<!--
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+				-->
+			</div>
+		</div>
+	</div>
+</body>
+<!-- CSS -->
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="qrcode.css">
+<!-- Script -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/html5-qrcode.min.js"></script>
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+            navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }).catch(function (err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+    }
+</script>
+<script>
+    function atou(str) {
+        return decodeURIComponent(escape(window.atob(str)));
+    }
+
+    function getBrowserLanguage() {
+        return navigator.language || navigator.userLanguage;
+    }
+
+    async function startRoutine() {
+        const w = screen.width;
+        const h = screen.height;
+
+        const size = Math.min(w, h);
+
+        const html5QrCode = new Html5Qrcode("reader");
+        await html5QrCode.start(
+            {
+                facingMode: "environment"
+            },
+            {
+                fps: 10,
+                qrbox: size * 0.6 | 0
+            },
+            (qrCodeMessage) => {
+                console.log(`QR Code detected: ${qrCodeMessage}`);
+                if (qrCodeMessage.startsWith("HKEN:")) {
+                    try {
+                        const json = JSON.parse(
+                            atou(qrCodeMessage.substr(5 + 1 + 8))
+                        );
+                        //alert("You visited " + (getBrowserLanguage().startsWith("zh") ? json.nameZh : json.nameEn));
+						var today = new Date();
+						var date = today.getFullYear() + '-' + ("0" + (today.getMonth() + 1)).slice(-2) + '-' + ("0" + today.getDate()).slice(-2) + " " + ("0" + today.getHours()).slice(-2) + ':' + ("0" + today.getMinutes()).slice(-2);
+						document.getElementById("modalDateTime").innerHTML = date;
+						document.getElementById("modalLocation").innerHTML = json.nameZh;
+						var qModal = document.getElementById("qrCodeModal");
+						qModal.classList.add("show");
+						qModal.classList.remove("hide");
+						//$('#qrCodeModal').modal('show');
+                    } catch (e) {
+                        alert(e);
+                    }
+                } else {
+                    alert("Invalid QRCode!");
+                }
+            }, () => { });
+    }
+
+    async function main() {
+        document.getElementById("backBtn").addEventListener("click", () => {
+            // alert("Back");
+        });
+        try {
+            await startRoutine();
+        } catch (e) { // First time, have no permission?
+            try {
+                await Html5Qrcode.getCameras();
+                await startRoutine();
+            } catch (err) {
+                // handle err
+                alert(`Unable to start scanning, error: ${err}`);
+            }
+        }
+    }
+
+    main();
+
+</script>
